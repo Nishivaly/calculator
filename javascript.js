@@ -1,6 +1,28 @@
+const displayBox = document.querySelector('#display');
+const operands = document.querySelector('#operands');
+
 let numOne;
 let operator;
 let numTwo;
+
+let currentDisplay = displayBox;
+
+operands.addEventListener('click', (e) => {
+    switch (e.target.id) {
+        case '7':
+            displayBox.textContent += 7;
+            break;
+
+        default:
+            break;
+    }
+    updateDisplay();
+
+});
+
+function updateDisplay() {
+    currentDisplay = displayBox.textContent;
+}
 
 function operate(numOne, operator, numTwo) {
     switch (operator) {
