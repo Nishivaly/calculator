@@ -7,7 +7,47 @@ let numTwo;
 
 let currentDisplay = displayBox;
 
+function updateDisplay() {
+    currentDisplay = displayBox.textContent;
+}
+
+function operate(numOne, operator, numTwo) {
+    switch (operator) {
+        case '+':
+            add(numOne, numTwo);
+            break;
+        case '-':
+            subtract(numOne, numTwo);
+            break;
+        case '*':
+            multiply(numOne, numTwo);
+            break;
+        case '/':
+            divide(numOne, numTwo);
+            break;
+    }
+}
+
+function add(left, right) {
+    return left + right;
+}
+
+function subtract(left, right) {
+    return left - right;
+}
+
+function multiply(left, right) {
+    return left * right;
+}
+
+function divide(left, right) {
+    return left / right;
+}
+
 operands.addEventListener('click', (e) => {
+    if (displayBox.textContent == 0) {
+        displayBox.textContent = '';
+    }
     switch (e.target.id) {
         case '7':
             displayBox.textContent += 7;
@@ -57,44 +97,9 @@ operands.addEventListener('click', (e) => {
         case '+':
             displayBox.textContent += '+';
             break;
+            case 'clear':
+                displayBox.textContent = 0;
+                break;
     }
     updateDisplay();
-
 });
-
-function updateDisplay() {
-    currentDisplay = displayBox.textContent;
-}
-
-function operate(numOne, operator, numTwo) {
-    switch (operator) {
-        case '+':
-            add(numOne, numTwo);
-            break;
-        case '-':
-            subtract(numOne, numTwo);
-            break;
-        case '*':
-            multiply(numOne, numTwo);
-            break;
-        case '/':
-            divide(numOne, numTwo);
-            break;
-    }
-}
-
-function add(left, right) {
-    return left + right;
-}
-
-function subtract(left, right) {
-    return left - right;
-}
-
-function multiply(left, right) {
-    return left * right;
-}
-
-function divide(left, right) {
-    return left / right;
-}

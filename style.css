@@ -44,3 +44,7 @@ body {
     flex: 1 1 calc(25% - 10px);
     aspect-ratio: 1;
 }
+
+#clear {
+    max-height: 20%;
+}
