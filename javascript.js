@@ -10,45 +10,37 @@ let currentDisplay = displayBox.textContent;
 
 function processDisplay() {
     const opArray = currentDisplay.split(" ");
-    console.log(opArray);
 
     let num1;
     let num2;
 
-    opArray.find((num, i, arr) => {
-        num1 = i > 0 ? arr[i - 1] : null;
-        console.log(num1);
-        num2 = i < arr.length - 1 ? arr[i + 1] : null;
-        switch (num) {
-            case '+':
-                result = add(num1, num2);
-                arr.splice(0, 3, result);
-                console.log(arr);
-                break;
-            case '-':
-                result = subtract(num1, num2);
-                arr.splice(0, 3, result);
-                console.log(arr);
-                break;
-            case '*':
-                result = multiply(num1, num2);
-                arr.splice(0, 3, result);
-                console.log(arr);
-                break;
-            case '/':
-                result = divide(num1, num2);
-                arr.splice(0, 3, result);
-                console.log(arr);
-                break;
+    opArray.forEach((num, i, arr) => {
+        if (num == '+' || num == '-' || num == '/' || num == '*') {
 
-                // case '-':
-                // case '/':
-                // case '*':
-
-                break;
+            num1 = i > 0 ? arr[i - 1] : null;
+            num2 = i < arr.length - 1 ? arr[i + 1] : null;
+            switch (num) {
+                case '+':
+                    result = add(num1, num2);
+                    arr.splice(0, 3, result);
+                    break;
+                case '-':
+                    result = subtract(num1, num2);
+                    arr.splice(0, 3, result);
+                    break;
+                case '*':
+                    result = multiply(num1, num2);
+                    arr.splice(0, 3, result);
+                    break;
+                case '/':
+                    result = divide(num1, num2);
+                    arr.splice(0, 3, result);
+                    break;
+            }
         }
     });
 
+    console.log(opArray)
 }
 
 function updateDisplay() {
@@ -73,22 +65,18 @@ function updateDisplay() {
 // }
 
 function add(left, right) {
-    displayBox.textContent = parseInt(left) + parseInt(right);
     return parseInt(left) + parseInt(right)
 }
 
 function subtract(left, right) {
-    displayBox.textContent = parseInt(left) - parseInt(right);
     return parseInt(left) - parseInt(right)
 }
 
 function multiply(left, right) {
-    displayBox.textContent = parseInt(left) * parseInt(right);
     return parseInt(left) * parseInt(right)
 }
 
 function divide(left, right) {
-    displayBox.textContent = parseInt(left) / parseInt(right);
     return parseInt(left) / parseInt(right)
 }
 
