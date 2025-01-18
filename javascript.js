@@ -7,41 +7,89 @@ let numTwo;
 
 let currentDisplay = displayBox.textContent;
 
+
+function processDisplay() {
+    const opArray = currentDisplay.split(" ");
+    console.log(opArray);
+
+    let num1;
+    let num2;
+
+    opArray.find((num, i, arr) => {
+        num1 = i > 0 ? arr[i - 1] : null;
+        console.log(num1);
+        num2 = i < arr.length - 1 ? arr[i + 1] : null;
+        switch (num) {
+            case '+':
+                result = add(num1, num2);
+                arr.splice(0, 3, result);
+                console.log(arr);
+                break;
+            case '-':
+                result = subtract(num1, num2);
+                arr.splice(0, 3, result);
+                console.log(arr);
+                break;
+            case '*':
+                result = multiply(num1, num2);
+                arr.splice(0, 3, result);
+                console.log(arr);
+                break;
+            case '/':
+                result = divide(num1, num2);
+                arr.splice(0, 3, result);
+                console.log(arr);
+                break;
+
+                // case '-':
+                // case '/':
+                // case '*':
+
+                break;
+        }
+    });
+
+}
+
 function updateDisplay() {
     currentDisplay = displayBox.textContent;
 }
 
-function operate(numOne, operator, numTwo) {
-    switch (operator) {
-        case '+':
-            add(numOne, numTwo);
-            break;
-        case '-':
-            subtract(numOne, numTwo);
-            break;
-        case '*':
-            multiply(numOne, numTwo);
-            break;
-        case '/':
-            divide(numOne, numTwo);
-            break;
-    }
-}
+// function operate(numOne, operator, numTwo) {
+//     switch (operator) {
+//         case '+':
+//             add(numOne, numTwo);
+//             break;
+//         case '-':
+//             subtract(numOne, numTwo);
+//             break;
+//         case '*':
+//             multiply(numOne, numTwo);
+//             break;
+//         case '/':
+//             divide(numOne, numTwo);
+//             break;
+//     }
+// }
 
 function add(left, right) {
-    return left + right;
+    displayBox.textContent = parseInt(left) + parseInt(right);
+    return parseInt(left) + parseInt(right)
 }
 
 function subtract(left, right) {
-    return left - right;
+    displayBox.textContent = parseInt(left) - parseInt(right);
+    return parseInt(left) - parseInt(right)
 }
 
 function multiply(left, right) {
-    return left * right;
+    displayBox.textContent = parseInt(left) * parseInt(right);
+    return parseInt(left) * parseInt(right)
 }
 
 function divide(left, right) {
-    return left / right;
+    displayBox.textContent = parseInt(left) / parseInt(right);
+    return parseInt(left) / parseInt(right)
 }
 
 operands.addEventListener('click', (e) => {
@@ -93,7 +141,7 @@ operands.addEventListener('click', (e) => {
                 displayBox.textContent += '.';
                 break;
             case '=':
-                operate();
+                processDisplay();
                 break;
             case '+':
                 displayBox.textContent += ' + ';
