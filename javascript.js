@@ -40,7 +40,16 @@ function processDisplay() {
         }
     });
 
-    console.log(opArray)
+    console.log(opArray);
+    displayBox.textContent = opArray.join(' ');
+    console.log(`this is the updated display: ${displayBox.textContent}`)
+   
+    updateDisplay();
+    if (opArray.length >= 3){
+        processDisplay();
+    } 
+    console.log(`this is the updated currentdisplay: ${currentDisplay}`)
+
 }
 
 function updateDisplay() {
@@ -65,19 +74,19 @@ function updateDisplay() {
 // }
 
 function add(left, right) {
-    return parseInt(left) + parseInt(right)
+    return Number(left) + Number(right)
 }
 
 function subtract(left, right) {
-    return parseInt(left) - parseInt(right)
+    return Number(left) - Number(right)
 }
 
 function multiply(left, right) {
-    return parseInt(left) * parseInt(right)
+    return Number(left) * Number(right)
 }
 
 function divide(left, right) {
-    return parseInt(left) / parseInt(right)
+    return Number(left) / Number(right)
 }
 
 operands.addEventListener('click', (e) => {
