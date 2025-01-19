@@ -9,7 +9,7 @@ let consecOp; // Check the operator selection isn't right after another
 let operatorOn = false; // There is currently an operator selected
 
 function useOperator(operator) {
-    getNumbers()
+    getNumbers();
     if (numOne !== undefined && numTwo !== undefined && lastOperator !== undefined && consecOp === false) {
         switch (lastOperator) {
             case '+':
@@ -59,24 +59,27 @@ function divide(left, right) {
     updateResult(result);
 }
 
+// Pressing = manually
+function forceResult() {
+    useOperator();
+    lastOperator = undefined;
+}
+
 function setDisplay(btn) {
     if (numOne !== undefined && operatorOn === true) {
         displayBox.textContent = '';
         operatorOn = false;
     }
     displayBox.textContent += btn;
-
     consecOp = false;
 }
 
 function getNumbers() {
-
     if (numOne === undefined) {
         numOne = displayBox.textContent;
     } else {
         numTwo = displayBox.textContent;
     }
-
 }
 
 operands.addEventListener('click', (e) => {
@@ -128,7 +131,7 @@ operands.addEventListener('click', (e) => {
                 setDisplay('.');
                 break;
             case '=':
-                // processDisplay();
+                forceResult();
                 break;
             case '+':
                 useOperator('+');
