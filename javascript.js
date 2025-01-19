@@ -5,12 +5,13 @@ let numOne;
 let numTwo;
 let result;
 let lastOperator;
+let consecOp;
 let operatorOn = false;
 
 function useOperator(operator) {
     getNumbers()
 
-    if (numOne !== undefined && numTwo !== undefined && lastOperator !== undefined) {
+    if (numOne !== undefined && numTwo !== undefined && lastOperator !== undefined && consecOp === false) {
         switch (lastOperator) {
             case '+':
                 add(numOne, numTwo);
@@ -27,6 +28,7 @@ function useOperator(operator) {
         }
         
     }
+    consecOp = true;
     lastOperator = operator;
     operatorOn = true;
 }
@@ -77,6 +79,7 @@ function setDisplay(btn) {
     }
     displayBox.textContent += btn;
 
+    consecOp = false;
 }
 
 function getNumbers() {
