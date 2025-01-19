@@ -1,16 +1,15 @@
 const displayBox = document.querySelector('#display');
 const operands = document.querySelector('#operands');
 
-let numOne;
-let numTwo;
-let result;
-let lastOperator;
-let consecOp;
-let operatorOn = false;
+let numOne; // Left operand
+let numTwo; // Right operand
+let result; // Result of the operation
+let lastOperator; // Latest operator selected (will be operator used)
+let consecOp; // Check the operator selection isn't right after another
+let operatorOn = false; // There is currently an operator selected
 
 function useOperator(operator) {
     getNumbers()
-
     if (numOne !== undefined && numTwo !== undefined && lastOperator !== undefined && consecOp === false) {
         switch (lastOperator) {
             case '+':
@@ -26,50 +25,38 @@ function useOperator(operator) {
                 divide(numOne, numTwo);
                 break;
         }
-        
     }
     consecOp = true;
     lastOperator = operator;
     operatorOn = true;
 }
 
-function add(left, right) {
-    result = Number(left) + Number(right);
+function updateResult(result) {
     numOne = result;
     numTwo = undefined;
     operatorOn = false;
     displayBox.textContent = result;
     result = undefined;
+}
 
+function add(left, right) {
+    result = Number(left) + Number(right);
+    updateResult(result);
 }
 
 function subtract(left, right) {
     result = Number(left) - Number(right)
-    numOne = result;
-    numTwo = undefined;
-    operatorOn = false;
-    displayBox.textContent = result;
-    result = undefined;
-
+    updateResult(result);
 }
 
 function multiply(left, right) {
     result = Number(left) * Number(right)
-    numOne = result;
-    numTwo = undefined;
-    operatorOn = false;
-    displayBox.textContent = result;
-    result = undefined;
+    updateResult(result);
 }
 
 function divide(left, right) {
     result = Number(left) / Number(right)
-    numOne = result;
-    numTwo = undefined;
-    operatorOn = false;
-    displayBox.textContent = result;
-    result = undefined;
-
+    updateResult(result);
 }
 
 function setDisplay(btn) {
