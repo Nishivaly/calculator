@@ -4,27 +4,30 @@ const operands = document.querySelector('#operands');
 let numOne;
 let numTwo;
 let result;
+let lastOperator;
 let operatorOn = false;
 
 function useOperator(operator) {
     getNumbers()
 
-    if (numOne !== undefined && numTwo !== undefined) {
-        switch (operator) {
+    if (numOne !== undefined && numTwo !== undefined && lastOperator !== undefined) {
+        switch (lastOperator) {
             case '+':
                 add(numOne, numTwo);
                 break;
             case '-':
                 subtract(numOne, numTwo);
                 break;
-            case '*':
+            case 'x':
                 multiply(numOne, numTwo);
                 break;
             case '/':
                 divide(numOne, numTwo);
                 break;
         }
+        
     }
+    lastOperator = operator;
     operatorOn = true;
 }
 
@@ -83,6 +86,7 @@ function getNumbers() {
     } else {
         numTwo = displayBox.textContent;
     }
+
 }
 
 operands.addEventListener('click', (e) => {
