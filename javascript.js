@@ -63,7 +63,11 @@ function multiply(left, right) {
 
 function divide(left, right) {
     result = Number(left) / Number(right)
-    updateResult(result);
+    if (right == 0) {
+        displayBox.textContent = "You can't do that m8"
+    } else {
+        updateResult(result);
+    }
 }
 
 // Pressing = manually
