@@ -89,9 +89,25 @@ function getNumbers() {
     }
 }
 
+function clear() {
+    numOne = undefined;
+    numTwo = undefined;
+    result = undefined;
+    lastOperator = undefined;
+    consecOp = false;
+    opLastPressed = false;
+    equalLastPressed = false
+}
+
 operands.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
-        if (displayBox.textContent == 0 && e.target.id !== '=') {
+        if (displayBox.textContent == 0 &&
+            e.target.id !== '=' &&
+            e.target.id !== 'x' &&
+            e.target.id !== '+' &&
+            e.target.id !== '-' &&
+            e.target.id !== '/'
+        ) {
             displayBox.textContent = '';
         }
         switch (e.target.id) {
