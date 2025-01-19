@@ -6,7 +6,8 @@ let numTwo; // Right operand
 let result; // Result of the operation
 let lastOperator; // Latest operator selected (will be operator used)
 let consecOp; // Check the operator selection isn't right after another
-let operatorOn = false; // Last button pressed was an operator
+let opLastPressed = false; // Last button pressed was an operator
+let equalLastPressed = false; // Ignores numerical buttons, allows input into result
 
 function useOperator(operator) {
     getNumbers();
@@ -28,13 +29,14 @@ function useOperator(operator) {
     }
     consecOp = true;
     lastOperator = operator;
-    operatorOn = true;
+    opLastPressed = true;
+    equalLastPressed = false;
 }
 
 function updateResult(result) {
     numOne = result;
     numTwo = undefined;
-    operatorOn = false;
+    opLastPressed = false;
     displayBox.textContent = result;
     result = undefined;
 }
@@ -63,14 +65,15 @@ function divide(left, right) {
 function forceResult() {
     useOperator();
     lastOperator = undefined;
+    equalLastPressed = true;
 }
 
-function setDisplay(btn) {
-    if (numOne !== undefined && operatorOn === true) {
+function setDisplay(input) {
+    if (numOne !== undefined && opLastPressed === true && equalLastPressed === false) {
         displayBox.textContent = '';
-        operatorOn = false;
+        opLastPressed = false;
     }
-    displayBox.textContent += btn;
+    displayBox.textContent += input;
     consecOp = false;
 }
 
@@ -80,11 +83,15 @@ function getNumbers() {
     } else {
         numTwo = displayBox.textContent;
     }
+
+    if (numOne !== undefined && equalLastPressed === true) {
+        numOne = displayBox.textContent;
+    }
 }
 
 operands.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
-        if (displayBox.textContent == 0) {
+        if (displayBox.textContent == 0 && e.target.id !== '=') {
             displayBox.textContent = '';
         }
         switch (e.target.id) {
