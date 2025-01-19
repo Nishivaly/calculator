@@ -2,91 +2,87 @@ const displayBox = document.querySelector('#display');
 const operands = document.querySelector('#operands');
 
 let numOne;
-let operator;
 let numTwo;
+let result;
+let operatorOn = false;
 
-let currentDisplay = displayBox.textContent;
+function useOperator(operator) {
+    getNumbers()
 
-
-function processDisplay() {
-    const opArray = currentDisplay.split(" ");
-
-    let num1;
-    let num2;
-
-    opArray.forEach((num, i, arr) => {
-        if (num == '+' || num == '-' || num == '/' || num == '*') {
-
-            num1 = i > 0 ? arr[i - 1] : null;
-            num2 = i < arr.length - 1 ? arr[i + 1] : null;
-            switch (num) {
-                case '+':
-                    result = add(num1, num2);
-                    arr.splice(0, 3, result);
-                    break;
-                case '-':
-                    result = subtract(num1, num2);
-                    arr.splice(0, 3, result);
-                    break;
-                case '*':
-                    result = multiply(num1, num2);
-                    arr.splice(0, 3, result);
-                    break;
-                case '/':
-                    result = divide(num1, num2);
-                    arr.splice(0, 3, result);
-                    break;
-            }
+    if (numOne !== undefined && numTwo !== undefined) {
+        switch (operator) {
+            case '+':
+                add(numOne, numTwo);
+                break;
+            case '-':
+                subtract(numOne, numTwo);
+                break;
+            case '*':
+                multiply(numOne, numTwo);
+                break;
+            case '/':
+                divide(numOne, numTwo);
+                break;
         }
-    });
-
-    console.log(opArray);
-    displayBox.textContent = opArray.join(' ');
-    console.log(`this is the updated display: ${displayBox.textContent}`)
-   
-    updateDisplay();
-    if (opArray.length >= 3){
-        processDisplay();
-    } 
-    console.log(`this is the updated currentdisplay: ${currentDisplay}`)
-
+    }
+    operatorOn = true;
 }
-
-function updateDisplay() {
-    currentDisplay = displayBox.textContent;
-}
-
-// function operate(numOne, operator, numTwo) {
-//     switch (operator) {
-//         case '+':
-//             add(numOne, numTwo);
-//             break;
-//         case '-':
-//             subtract(numOne, numTwo);
-//             break;
-//         case '*':
-//             multiply(numOne, numTwo);
-//             break;
-//         case '/':
-//             divide(numOne, numTwo);
-//             break;
-//     }
-// }
 
 function add(left, right) {
-    return Number(left) + Number(right)
+    result = Number(left) + Number(right);
+    numOne = result;
+    numTwo = undefined;
+    operatorOn = false;
+    displayBox.textContent = result;
+    result = undefined;
+
 }
 
 function subtract(left, right) {
-    return Number(left) - Number(right)
+    result = Number(left) - Number(right)
+    numOne = result;
+    numTwo = undefined;
+    operatorOn = false;
+    displayBox.textContent = result;
+    result = undefined;
+
 }
 
 function multiply(left, right) {
-    return Number(left) * Number(right)
+    result = Number(left) * Number(right)
+    numOne = result;
+    numTwo = undefined;
+    operatorOn = false;
+    displayBox.textContent = result;
+    result = undefined;
 }
 
 function divide(left, right) {
-    return Number(left) / Number(right)
+    result = Number(left) / Number(right)
+    numOne = result;
+    numTwo = undefined;
+    operatorOn = false;
+    displayBox.textContent = result;
+    result = undefined;
+
+}
+
+function setDisplay(btn) {
+    if (numOne !== undefined && operatorOn === true) {
+        displayBox.textContent = '';
+        operatorOn = false;
+    }
+    displayBox.textContent += btn;
+
+}
+
+function getNumbers() {
+
+    if (numOne === undefined) {
+        numOne = displayBox.textContent;
+    } else {
+        numTwo = displayBox.textContent;
+    }
 }
 
 operands.addEventListener('click', (e) => {
@@ -96,57 +92,56 @@ operands.addEventListener('click', (e) => {
         }
         switch (e.target.id) {
             case '7':
-                displayBox.textContent += 7;
+                setDisplay(7);
                 break;
             case '8':
-                displayBox.textContent += 8;
+                setDisplay(8);
                 break;
             case '9':
-                displayBox.textContent += 9;
+                setDisplay(9);
                 break;
             case '/':
-                displayBox.textContent += ' / ';
+                useOperator('/');
                 break;
             case '4':
-                displayBox.textContent += 4;
+                setDisplay(4);
                 break;
             case '5':
-                displayBox.textContent += 5;
+                setDisplay(5);
                 break;
             case '6':
-                displayBox.textContent += 6;
+                setDisplay(6);
                 break;
             case 'x':
-                displayBox.textContent += ' * ';
+                useOperator('x');
                 break;
             case '1':
-                displayBox.textContent += 1;
+                setDisplay(1);
                 break;
             case '2':
-                displayBox.textContent += 2;
+                setDisplay(2);
                 break;
             case '3':
-                displayBox.textContent += 3;
+                setDisplay(3);
                 break;
             case '-':
-                displayBox.textContent += ' - ';
+                useOperator('-');
                 break;
             case '0':
-                displayBox.textContent += 0;
+                setDisplay(0);
                 break;
             case 'dot':
-                displayBox.textContent += '.';
+                setDisplay('.');
                 break;
             case '=':
-                processDisplay();
+                // processDisplay();
                 break;
             case '+':
-                displayBox.textContent += ' + ';
+                useOperator('+');
                 break;
             case 'clear':
                 displayBox.textContent = 0;
                 break;
         }
-        updateDisplay();
     }
 });
