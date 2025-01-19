@@ -6,7 +6,7 @@ let numTwo; // Right operand
 let result; // Result of the operation
 let lastOperator; // Latest operator selected (will be operator used)
 let consecOp; // Check the operator selection isn't right after another
-let operatorOn = false; // There is currently an operator selected
+let operatorOn = false; // Last button pressed was an operator
 
 function useOperator(operator) {
     getNumbers();
