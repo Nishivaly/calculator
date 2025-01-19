@@ -7,7 +7,7 @@ let result; // Result of the operation
 let lastOperator; // Latest operator selected (will be operator used)
 let consecOp; // Check the operator selection isn't right after another
 let opLastPressed = false; // Last button pressed was an operator
-let equalLastPressed = false; // Ignores numerical buttons, allows input into result
+let equalLastPressed = false; // Allows input into result after pressing =
 
 function useOperator(operator) {
     getNumbers();
@@ -34,11 +34,16 @@ function useOperator(operator) {
 }
 
 function updateResult(result) {
-    numOne = result;
+    numOne = truncateDecimals(result, 7);
     numTwo = undefined;
     opLastPressed = false;
-    displayBox.textContent = result;
+    displayBox.textContent = numOne;
     result = undefined;
+}
+
+function truncateDecimals(num, decimalPlaces) {
+    const factor = Math.pow(10, decimalPlaces); // e.g., 10^2 = 100 for 2 decimal places
+    return Math.floor(num * factor) / factor;
 }
 
 function add(left, right) {
